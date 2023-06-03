@@ -1,0 +1,41 @@
+
+static Boolean isSubsetSum(int N, int arr[], int sum){
+      
+     
+     int dp[][]=new int[N][sum+1];
+     
+     for(int[] row:dp){
+         Arrays.fill(row,-1); 
+     }
+      
+      
+      
+      return isSubsetSum1(N-1,arr,sum,dp);
+    }
+    
+    static Boolean isSubsetSum1(int ind, int arr[], int sum,int dp[][]){
+      
+    if(sum==0)
+    return true;
+      
+    // if(ind==0){
+    // return arr[ind]==sum;    
+    // }
+    
+    if(ind==0){
+     if(arr[ind]==sum)
+        return true;
+        else return false;
+    }  
+    
+    if(dp[ind][sum]!=-1)
+      return dp[ind][sum]==1?true:false; 
+    
+    
+    Boolean notake=isSubsetSum1(ind-1,arr,sum,dp);
+    Boolean take=false;
+    if(arr[ind]<=sum)
+    take=isSubsetSum1(ind-1,arr,sum-arr[ind],dp);
+    dp[ind][sum]= notake||take?1:0;
+    return take||notake;
+}
